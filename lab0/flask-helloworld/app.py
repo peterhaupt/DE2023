@@ -8,7 +8,7 @@ app = Flask(__name__)
 # A decorator used to tell the application which URL is associated function
 # the complete URL will be http://ip:port/users?name=some_value
 @app.route('/users', methods=["GET"])
-def check_diabetes():
+def say_hello():
     name_value = request.args.get('name')  # "name" is a query parameter
 
     return "Hello " + name_value
