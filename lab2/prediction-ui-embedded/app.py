@@ -1,6 +1,5 @@
 # importing Flask and other modules
 import json
-import os
 
 import pandas as pd
 from flask import Flask, request, render_template, jsonify
@@ -15,7 +14,10 @@ app = Flask(__name__)
 # which URL is associated function
 @app.route('/checkdiabetes', methods=["GET", "POST"])
 def check_diabetes():
-    if request.method == "POST":
+    if request.method == "GET":
+        return render_template("input_form_page.html")
+
+    elif request.method == "POST":
         prediction_input = [
             {
                 "ntp": int(request.form.get("ntp")),  # getting input with name = ntp in HTML form
@@ -28,16 +30,23 @@ def check_diabetes():
                 "age": int(request.form.get("age"))
             }
         ]
+
         print(prediction_input)
+
         dp = DiabetesPredictor()
         df = pd.read_json(json.dumps(prediction_input), orient='records')
         status = dp.predict_single_record(df)
-        # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
-        return jsonify({'result': str(status[0])}), 200
 
-    return render_template(
-        "user_form.html")  # this method is called of HTTP method is GET, e.g., when browsing the link
+        return render_template("response_page.html",
+                               prediction_variable=status[0])
+
+    else:
+        return jsonify(message="Method Not Allowed"), 405  # The 405 Method Not Allowed should be used to indicate
+    # that our app that does not allow the users to perform any other HTTP method (e.g., PUT and  DELETE) for
+    # '/checkdiabetes' path
 
 
+# The code within this conditional block will only run the python file is executed as a
+# script. See https://realpython.com/if-name-main-python/
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get("PORT", 5000)), host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5000)
