@@ -1,5 +1,7 @@
 # importing Flask and other modules
 import json
+import logging
+from io import StringIO
 
 import pandas as pd
 from flask import Flask, request, render_template, jsonify
@@ -30,11 +32,10 @@ def check_diabetes():
                 "age": int(request.form.get("age"))
             }
         ]
-
-        print(prediction_input)
+        logging.debug("Prediction Input : %s", prediction_input)
 
         dp = DiabetesPredictor()
-        df = pd.read_json(json.dumps(prediction_input), orient='records')
+        df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
         status = dp.predict_single_record(df)
 
         return render_template("response_page.html",
