@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/$PROJECT_ID/prediction-api:0.0.1",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-api:0.0.1",
         "./lab2/prediction-api"
       ]
     },
@@ -14,7 +14,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/$PROJECT_ID/prediction-ui:0.0.1",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-ui:0.0.1",
         "./lab2/prediction-ui"
       ]
     },
@@ -22,14 +22,14 @@
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "gcr.io/$PROJECT_ID/prediction-api:0.0.1"
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-api:0.0.1"
       ]
     },
     {
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
-        "gcr.io/$PROJECT_ID/prediction-ui:0.0.1"
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-ui:0.0.1"
       ]
     },
     {
@@ -40,7 +40,7 @@
         "deploy",
         "prediction-api",
         "--image",
-        "gcr.io/$PROJECT_ID/prediction-api:0.0.1",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-api:0.0.1",
         "--region",
         "us-central1",
         "--platform",
@@ -62,7 +62,7 @@
         "deploy",
         "prediction-ui",
         "--image",
-        "gcr.io/$PROJECT_ID/prediction-ui:0.0.1",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/prediction-ui:0.0.1",
         "--region",
         "us-central1",
         "--platform",
@@ -73,7 +73,7 @@
         "2",
         "--memory",
         "4G",
-        "--remove-env-vars",
+        "--set-env-vars",
         "PREDICTOR_API=todo",
         "--allow-unauthenticated"
       ]
