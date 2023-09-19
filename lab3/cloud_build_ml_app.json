@@ -9,7 +9,7 @@
         "./lab2/prediction-api"
       ]
     },
-     {
+    {
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "build",
@@ -25,7 +25,7 @@
         "gcr.io/$PROJECT_ID/prediction-api:0.0.1"
       ]
     },
-     {
+    {
       "name": "gcr.io/cloud-builders/docker",
       "args": [
         "push",
@@ -45,8 +45,12 @@
         "us-central1",
         "--platform",
         "managed",
+        "--port",
+        "5000",
         "--cpu",
         "2",
+        "--memory",
+        "4G",
         "--allow-unauthenticated"
       ]
     },
@@ -63,8 +67,12 @@
         "us-central1",
         "--platform",
         "managed",
+        "--port",
+        "5000",
         "--cpu",
         "2",
+        "--memory",
+        "4G",
         "--remove-env-vars",
         "PREDICTOR_API=todo",
         "--allow-unauthenticated"
