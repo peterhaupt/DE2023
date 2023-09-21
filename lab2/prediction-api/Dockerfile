@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
-# Enviroment Variables
+# Environment Variables
 ENV MODEL_REPO=/usr/src/myapp
 # Run our App
 CMD ["python3","app.py"]
