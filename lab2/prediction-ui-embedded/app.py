@@ -12,7 +12,7 @@ from diabetes_predictor import DiabetesPredictor
 # Flask constructor
 app = Flask(__name__)
 
-
+dp = DiabetesPredictor(os.environ.get('MODEL_NAME', 'MODEL_NAME environment variable is not set.'))
 # A decorator used to tell the application
 # which URL is associated function
 @app.route('/checkdiabetes', methods=["GET", "POST"])
@@ -34,8 +34,6 @@ def check_diabetes():
             }
         ]
         logging.debug("Prediction Input : %s", prediction_input)
-
-        dp = DiabetesPredictor()
         df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
         status = dp.predict_single_record(df)
 
