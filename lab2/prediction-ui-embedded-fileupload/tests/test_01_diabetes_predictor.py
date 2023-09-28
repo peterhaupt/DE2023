@@ -7,7 +7,7 @@ import diabetes_predictor
 
 class TestDiabetesPredictor:
     def test_predict_single_record(self):
-        with open('testResources/prediction_request.json') as json_file:
+        with open('../testResources/prediction_request.json') as json_file:
             data = pd.read_json(json_file)
         dp = diabetes_predictor.DiabetesPredictor()
         status = dp.predict_single_record(data)
