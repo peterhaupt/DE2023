@@ -13,7 +13,7 @@
        "name": "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/pipline-executor:0.0.1",
        "args": [
            "--name=diabetes-predictor-pipeline",           
-		   "--pipeline_def=./lab5/diabetes_prdictor_training_pipeline_v2.yaml",
+		   "--pipeline_def=./lab5/diabetes_predictor_training_pipeline_v2.yaml",
            "--pipeline_root=gs://temp_de2023",         
 		   "--parameter_dict=./parameters.json"
         ]
