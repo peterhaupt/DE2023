@@ -10,7 +10,7 @@
         ]
    },
    {
-       "name": "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/pipline-executor:0.0.1",
+       "name": "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/pipeline-executor:0.0.1",
        "args": [
            "--name=diabetes-predictor-mlp-pipeline",           
 		   "--pipeline_def=./lab5/diabetes_predictor_mlp.yaml",
