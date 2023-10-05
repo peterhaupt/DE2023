@@ -14,7 +14,7 @@ from keras.models import Sequential
 def train_mlp(project_id, feature_path, model_repo, metrics_path):
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-    df = pd.read_csv(feature_path, index_col=None, squeeze=True)
+    df = pd.read_csv(feature_path, index_col=None)
 
     logging.info(df.columns)
 
