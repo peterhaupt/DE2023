@@ -1,4 +1,4 @@
-gsutil cp ../lab4/data/* gs://data_de2023
+gsutil cp ../lab4/data/* gs://data_de2023_peterhaupt
 
 git config --global user.email "indika@example.com"
 git config --global user.name "Indika Kumara"
