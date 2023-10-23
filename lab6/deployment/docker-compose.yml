@@ -1,20 +1,20 @@
-version: '3.8'
+version: '3.9'
 
 volumes:
   spark-data:
     driver_opts:
       type: none
-      device: /home/${user_home}/data
+      device: /home/${USER_HOME}/data
       o: bind
   notebooks:
     driver_opts:
       type: none
-      device: /home/${user_home}/notebooks
+      device: /home/${USER_HOME}/notebooks
       o: bind
   spark-checkpoint:
     driver_opts:
       type: none
-      device: /home/${user_home}/checkpoint
+      device: /home/${USER_HOME}/checkpoint
       o: bind
 services:
   spark-driver-app:
