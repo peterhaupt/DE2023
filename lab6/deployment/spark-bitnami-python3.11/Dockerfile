@@ -1,4 +1,4 @@
-FROM bitnami/python:3.10 as build
+FROM bitnami/python:3.11 as build
 
 FROM bitnami/spark:3.5.0
 
