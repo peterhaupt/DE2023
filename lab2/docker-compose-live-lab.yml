@@ -1,0 +1,17 @@
+version: '0.1'
+
+services:
+  prediction-api:
+    build:
+      context: ./prediction-api
+    container_name: prediction-api
+    user: root
+    ports:
+      - "5000:5000"
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/home/jovyan/.gcp/credentials.json
+    volumes:
+    
+
+
+
