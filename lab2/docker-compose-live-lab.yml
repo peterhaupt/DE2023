@@ -3,14 +3,55 @@ version: '0.1'
 services:
   prediction-api:
     build:
-      context: ./prediction-api
+      context: prediction-api
     container_name: prediction-api
     user: root
     ports:
-      - "5000:5000"
+      - "5001:5000"
+    networks:
+      - network-a
+      - network-b
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/home/jovyan/.gcp/credentials.json
+      - MODEL_REPO=/usr/src/myapp/models
     volumes:
+      - "home/p_a_haupt/models:/usr/src/myapp/models"
+services:
+  prediction-ui:
+    build:
+      context: prediction-ui
+    container_name: prediction-ui
+    user: root
+    depends_on:
+      - prediction-api
+    ports:
+      - "5000:5000"
+    networks:
+      - network-a
+    environment:
+      - MODEL_REPO=/usr/src/myapp/models
+    volumes:
+      - "home/p_a_haupt/models:/usr/src/myapp/models"
+services:
+  training-api:
+    build:
+      context: training-api
+    container_name: training-api
+    depends_on:
+      - prediction-api
+    user: root
+    ports:
+      - "5001:5000"
+    networks:
+      - network-b
+    environment:
+      - MODEL_REPO=/usr/src/myapp/models
+    volumes:
+      - "home/p_a_haupt/models:/usr/src/myapp/models"
+
+
+networks:
+  network-a:
+  network_b:
     
 
 
