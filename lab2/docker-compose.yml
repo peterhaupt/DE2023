@@ -38,7 +38,7 @@ services:
       - prediction-api
     user: root
     ports:
-      - "5001:5000"
+      - "5002:5000"
     networks:
       - network-b
     environment:
