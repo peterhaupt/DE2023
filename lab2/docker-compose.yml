@@ -45,11 +45,9 @@ services:
       - MODEL_REPO=/usr/src/myapp/models
     volumes:
       - "home/p_a_haupt/models:/usr/src/myapp/models"
-
-
 networks:
   network-a:
-  network_b:
+  network-b:
     
 
 
