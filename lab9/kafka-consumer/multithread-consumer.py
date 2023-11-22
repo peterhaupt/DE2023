@@ -1,14 +1,17 @@
 import logging
+import sys
 import time
 from threading import Thread
 
 from kafka import KafkaConsumer, TopicPartition
 
 
-def read_from_topic(kafka_consumer, topic):
-    kafka_consumer.subscribe(topics=[topic])
+def read_from_topic(kafka_consumer):
     for msg in kafka_consumer:
-        print(msg.value.decode("utf-8"))
+        if msg.key:
+            print(msg.key.decode("utf-8"), " ", msg.value.decode("utf-8"))
+        else:
+            print(msg.value.decode("utf-8"))
 
 
 def read_from_topic_with_partition(kafka_consumer, topic):
@@ -29,20 +32,41 @@ def read_from_topic_with_partition_offset(kafka_consumer, topic):
 # if you want to learn about threading in python, check the following article
 # https://realpython.com/intro-to-python-threading/
 
+def configure_logger():
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
+
+
 class KafkaMessageConsumer(Thread):
 
-    def __init__(self):
+    def __init__(self, topic):
         Thread.__init__(self)
-        self.consumer = KafkaConsumer(bootstrap_servers='34.27.74.158:9092',  # use your VM's external IP Here!
+        self.consumer = KafkaConsumer(bootstrap_servers='VM_IP:9092',  # use your VM's external IP Here!
                                       auto_offset_reset='earliest',
                                       consumer_timeout_ms=10000)
-        self.start()
+
+        self.consumer.subscribe(topics=[topic])
 
     def run(self):
         while True:
             try:
-                read_from_topic(self.consumer, 'wordcount')
+                read_from_topic(self.consumer)
                 time.sleep(30)
             except Exception as err:
                 logging.info(f"Unexpected {err=}, {type(err)=}")
                 time.sleep(30)
+
+
+if __name__ == '__main__':
+    configure_logger()
+    c1 = KafkaMessageConsumer('wordcount')
+    c2 = KafkaMessageConsumer('avg_score')
+    c1.start()
+    c2.start()
+    c1.join()
+    c2.join()
