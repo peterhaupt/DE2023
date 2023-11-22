@@ -5,6 +5,7 @@ def read_from_topic(kafka_consumer, topic):
     kafka_consumer.subscribe(topics=[topic])
     for msg in kafka_consumer:
         print(msg.value.decode("utf-8"))
+        # print(msg.key.decode("utf-8"), " ", msg.value.decode("utf-8"))
 
 
 def read_from_topic_with_partition(kafka_consumer, topic):
