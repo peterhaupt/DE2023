@@ -39,9 +39,9 @@ def run_job():
     # https://realpython.com/intro-to-python-threading/
     # if you want to schedule a job https://www.geeksforgeeks.org/python-schedule-library/
     t1 = threading.Thread(target=produce_from_file,
-                          args=(producer, 'C:\projects\DE2023\lab9\data\game\game_data_split1.json',))
+                          args=(producer, 'C:\software\DE2023\lab9\data\game\game_data_split1.json',))
     t2 = threading.Thread(target=produce_from_file,
-                          args=(producer, 'C:\projects\DE2023\lab9\data\game\game_data_split2.json',))
+                          args=(producer, 'C:\software\DE2023\lab9\data\game\game_data_split2.json',))
     t1.start()
     t2.start()
 
